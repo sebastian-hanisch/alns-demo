@@ -251,7 +251,7 @@ if (sweep_param, base_sweep) in st.session_state.get("sweep_done", set()):
     with st.spinner("Rechne den Sweep über 5 feste Instanzen..."):
         rows_sweep = _sweep(sweep_param, base_sweep)
     st.plotly_chart(build_sweep(rows_sweep, SWEEP_LABELS[sweep_param]), width="stretch", key="sweep_chart")
-    st.caption("Mittel über 5 feste Instanzen (Seeds 100000–100004); bei ALNS zusätzlich über 3 Ketten-Seeds je Instanz.")
+    st.caption("Mittel über 5 feste Instanzen (Seeds 100000–100004); bei ALNS zusätzlich über 2 Ketten-Seeds je Instanz.")
 
 st.markdown("---")
 
@@ -273,7 +273,7 @@ st.subheader("🔬 Bringt die Adaptivität etwas?")
 if st.button("Adaptiv gegen gleichverteilt vergleichen (kann einige Minuten dauern)", key="adaptive_start"):
     st.session_state["adaptive_on"] = True
 if st.session_state.get("adaptive_on"):
-    with st.spinner("Rechne beide Varianten über 5 Instanzen × 3 Ketten..."):
+    with st.spinner("Rechne beide Varianten über 5 Instanzen × 2 Ketten..."):
         rows_a = _compare_adaptive(base_sweep)
     labels = list(rows_a.keys())
     st.plotly_chart(build_comparison_bar(labels, [rows_a[l]["improvement"] for l in labels]), width="stretch", key="adaptive_chart")
@@ -284,7 +284,7 @@ st.subheader("🔬 ALNS gegen festes SISR-Ruin")
 if st.button("Vollen Operator-Pool gegen festes SISR vergleichen (kann einige Minuten dauern)", key="sisr_start"):
     st.session_state["sisr_on"] = True
 if st.session_state.get("sisr_on"):
-    with st.spinner("Rechne beide Varianten über 5 Instanzen × 3 Ketten..."):
+    with st.spinner("Rechne beide Varianten über 5 Instanzen × 2 Ketten..."):
         rows_s = _compare_sisr(base_sweep)
     labels = list(rows_s.keys())
     st.plotly_chart(build_comparison_bar(labels, [rows_s[l]["improvement"] for l in labels]), width="stretch", key="sisr_chart")
@@ -368,6 +368,6 @@ Vergleiche).
 st.markdown("---")
 st.caption(
     "Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – "
-    "Operations Research und Machine Learning. Interesse an einer maßgeschneiderten Lösung für "
-    "Ihr Unternehmen? [Kontakt aufnehmen](https://sebastianhanisch.net/kontakt.html)"
+    "Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). "
+    "Mehr zur Reihe: [Trajektorien-Metaheuristiken: HC bis ALNS](https://sebastianhanisch.net/konzepte-trajektorien-metaheuristiken.html)."
 )

@@ -111,12 +111,12 @@ PRESETS = {
     },
 }
 PRESET_HELP = {
-    "Standardfall (Voreinstellung)": "60 Stopps, Kapazität 120 (3 Routen), 50 Tausend Vorschläge: ALNS verbessert die Savings-Konstruktion im Mittel um 8.89 % - die kleine Nachbarschaft der Schwester-Demo bei gleichem Budget nur um 2.28 %.",
-    "Kleine Nachbarschaft (Vergleich)": "Dieselbe Instanz und dasselbe Budget, aber die kleine Nachbarschaft (Relocate/Swap/2-opt*/CROSS-exchange) statt destroy/repair: nur 2.28 % statt 8.89 % - der zentrale Befund dieses Stücks.",
-    "Nicht-adaptiv (Kontrolle)": "Dieselbe Instanz, aber Destroy-/Repair-Operatoren gleichverteilt statt gelernt gewählt: 8.87 % statt 8.89 % - praktisch kein Unterschied. Die Adaptivität trägt hier kaum etwas.",
-    "Festes SISR-Ruin": "Nur der SISR-String-Operator + Greedy-Repair, ohne jede Gewichtsanpassung: 8.79 % - nah am vollen, adaptiven Operator-Pool (8.89 %).",
-    "Kleine Kapazität (viele Routen)": "Kapazität 15 (im Mittel knapp 23 winzige Routen): nur 1.04 % - wie bei der Schwester-Demo sind sehr kleine Routen auch für ALNS zu klein für nennenswerte Umbauten.",
-    "Mittlere Stoppzahl (Skalierungs-Optimum)": "100 Stopps statt 60 (im Mittel 4.8 Routen): 9.52 % - das gemessene Optimum der Skalierung, mehr als bei kleineren UND bei größeren Instanzen (nicht-monoton, wie der Kapazitäts-Sweep).",
+    "Standardfall (Voreinstellung)": "60 Stopps, Kapazität 120 (3 Routen), 50 Tausend Vorschläge: ALNS verbessert die Savings-Konstruktion im Mittel über 5 feste Instanzen um 8.89 % - die kleine Nachbarschaft der Schwester-Demo bei gleichem Budget nur um 2.28 %.",
+    "Kleine Nachbarschaft (Vergleich)": "Dasselbe Budget und dieselbe Savings-Startlösung, aber die kleine Nachbarschaft (Relocate/Swap/2-opt*/CROSS-exchange) statt destroy/repair: im Mittel über 5 feste Instanzen nur 2.28 % statt 8.89 % - der zentrale Befund dieses Stücks.",
+    "Nicht-adaptiv (Kontrolle)": "Sonst gleiche Einstellung, aber Destroy-/Repair-Operatoren gleichverteilt statt gelernt gewählt: im Mittel über 5 feste Instanzen 8.87 % statt 8.89 % - praktisch kein Unterschied. Die Adaptivität trägt hier kaum etwas.",
+    "Festes SISR-Ruin": "Nur der SISR-String-Operator + Greedy-Repair, ohne jede Gewichtsanpassung: im Mittel über 5 feste Instanzen 8.79 % - nah am vollen, adaptiven Operator-Pool (8.89 %).",
+    "Kleine Kapazität (viele Routen)": "Kapazität 15 (im Mittel knapp 23 winzige Routen): im Mittel über 5 feste Instanzen nur 1.04 % - wie bei der Schwester-Demo sind sehr kleine Routen auch für ALNS zu klein für nennenswerte Umbauten.",
+    "Mittlere Stoppzahl (Skalierungs-Optimum)": "100 Stopps statt 60 (im Mittel 4.8 Routen): im Mittel über 5 feste Instanzen 9.52 % - das gemessene Optimum der Skalierung, mehr als bei kleineren UND bei größeren Instanzen (nicht-monoton, wie der Kapazitäts-Sweep).",
 }
 # Beobachtete Spannweite der Verbesserung ggü. Konstruktion über die 5 festen Sweep-Instanzen (je EIN
 # Ketten-Seed=0-Lauf, mit Sicherheitsabstand) - ALNS hat wieder Zufall im Kern (anders als die deterministische
