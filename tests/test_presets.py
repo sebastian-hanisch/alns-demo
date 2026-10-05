@@ -36,6 +36,7 @@ def test_default_preset_equals_the_default_settings():
     assert _settings(C.PRESETS["Standardfall (Voreinstellung)"]) == ev.Settings()
 
 
+@pytest.mark.slow
 @pytest.mark.parametrize("name", list(C.PRESETS))
 def test_preset_improvement_stays_in_its_measured_band_over_instances(name):
     p = C.PRESETS[name]

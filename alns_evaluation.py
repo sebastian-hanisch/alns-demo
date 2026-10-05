@@ -83,6 +83,7 @@ def analyse(settings):
     else:
         run = IR.descend(D, routes, inst.demands, settings.capacity, active_moves=settings.active_moves,
                           keep_steps=False, max_evaluations=settings.budget)
+        run.routes = [r for r in run.routes if len(r) > 0]                    # Züge (Relocate, 2-opt*) können eine Route leeren - sie zählt weder als Route noch erscheint sie in Karte/Tabelle
         cost, evaluations, n_routes = run.cost, run.evaluations, len(run.routes)
     return Analysis(settings, inst, D, routes, construction_cost, run, cost, evaluations, n_routes)
 

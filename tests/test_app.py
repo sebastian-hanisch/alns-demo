@@ -35,6 +35,7 @@ def test_default_run_has_no_exception():
     assert at.metric
 
 
+@pytest.mark.slow
 @pytest.mark.parametrize("name", list(C.PRESETS))
 def test_every_preset_button_runs(name):
     at = _run()
@@ -78,6 +79,7 @@ def test_toggling_adaptive_off_runs_without_exception():
     _ok(_run(budget_select=5000, adaptive_toggle=False))
 
 
+@pytest.mark.slow
 @pytest.mark.parametrize("kw", [
     dict(n_slider=C.N_MAX, budget_select=10000), dict(n_slider=C.N_MIN, budget_select=5000),
     dict(capacity_slider=C.CAPACITY_MIN, budget_select=5000), dict(capacity_slider=C.CAPACITY_MAX, budget_select=5000),
@@ -107,6 +109,7 @@ def test_permalink_values_are_clamped_and_snapped():
     assert at.session_state["method_select"] == "small_neighborhood"
 
 
+@pytest.mark.slow
 def test_sweeps_run_on_demand():
     at = _run(n_slider=15, budget_select=5000)
     at.selectbox(key="sweep_select").set_value("capacity").run()
@@ -115,6 +118,7 @@ def test_sweeps_run_on_demand():
     assert at.get("plotly_chart")
 
 
+@pytest.mark.slow
 def test_experiments_run_on_demand(monkeypatch):
     import alns_constants as C_
     monkeypatch.setattr(C_, "SCALING_N", (10, 20))

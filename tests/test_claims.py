@@ -34,6 +34,7 @@ def near(value, expected, tol):
 # --- Zentrale Frage: ALNS gegen die kleine Nachbarschaft der Schwester-Demo ----------------------------------------------------------------------
 
 
+@pytest.mark.slow
 def test_alns_default_improvement():
     near(cfg()["improvement"], 8.886, 1.0)
 
@@ -42,6 +43,7 @@ def test_small_neighborhood_default_improvement():
     near(cfg(method="small_neighborhood")["improvement"], 2.278, 0.5)
 
 
+@pytest.mark.slow
 def test_alns_clearly_beats_the_small_neighborhood_at_equal_declared_budget():
     alns = cfg()["improvement"]
     small = cfg(method="small_neighborhood")["improvement"]
@@ -59,10 +61,12 @@ def test_small_neighborhood_stays_far_behind_alns_across_capacities(capacity, ex
 # --- Adaptivität: NICHT bestätigte Vorab-Hypothese (zentraler ehrlicher Befund) ------------------------------------------------------------------
 
 
+@pytest.mark.slow
 def test_non_adaptive_improvement():
     near(cfg(adaptive=False)["improvement"], 8.869, 1.0)
 
 
+@pytest.mark.slow
 def test_adaptive_weights_bring_practically_no_benefit_here():
     adaptive = cfg()["improvement"]
     non_adaptive = cfg(adaptive=False)["improvement"]
@@ -72,11 +76,13 @@ def test_adaptive_weights_bring_practically_no_benefit_here():
 # --- ALNS gegen festes SISR-Ruin ------------------------------------------------------------------------------------------------------------------
 
 
+@pytest.mark.slow
 def test_fixed_sisr_ruin_improvement():
     row = cfg(destroy_ops=("sisr",), repair_ops=("greedy",), adaptive=False)
     near(row["improvement"], 8.788, 1.0)
 
 
+@pytest.mark.slow
 def test_full_adaptive_pool_edges_out_fixed_sisr_ruin_but_not_by_much():
     full = cfg()["improvement"]
     fixed = cfg(destroy_ops=("sisr",), repair_ops=("greedy",), adaptive=False)["improvement"]
@@ -87,12 +93,14 @@ def test_full_adaptive_pool_edges_out_fixed_sisr_ruin_but_not_by_much():
 # --- Destroy-Operator-Ablation: Worst überraschend am schwächsten -----------------------------------------------------------------------------
 
 
+@pytest.mark.slow
 @pytest.mark.parametrize("op,expected,tol", [("random", 8.602, 1.0), ("worst", 8.520, 1.0), ("shaw", 8.837, 1.0), ("sisr", 8.875, 1.0)])
 def test_single_destroy_operator_numbers(op, expected, tol):
     row = cfg(destroy_ops=(op,))
     near(row["improvement"], expected, tol)
 
 
+@pytest.mark.slow
 def test_worst_removal_is_the_weakest_single_destroy_operator():
     """Gegen die naive Erwartung ('teuerste Kunden zuerst entfernen sollte helfen') - hier gemessen, nicht
     angenommen: Worst bleibt sogar hinter Zufällig zurück."""
@@ -100,6 +108,7 @@ def test_worst_removal_is_the_weakest_single_destroy_operator():
     assert min(vals, key=vals.get) == "worst"
 
 
+@pytest.mark.slow
 def test_sisr_alone_captures_almost_all_of_the_full_pool_value():
     full = cfg()["improvement"]
     sisr_only = cfg(destroy_ops=("sisr",))["improvement"]
@@ -109,11 +118,13 @@ def test_sisr_alone_captures_almost_all_of_the_full_pool_value():
 # --- Repair-Operator-Vergleich: Greedy schlägt Regret-2 --------------------------------------------------------------------------------------
 
 
+@pytest.mark.slow
 def test_repair_operator_numbers():
     near(cfg(repair_ops=("greedy",))["improvement"], 8.952, 1.0)
     near(cfg(repair_ops=("regret2",))["improvement"], 8.509, 1.0)
 
 
+@pytest.mark.slow
 def test_greedy_beats_regret2_against_the_common_literature_intuition():
     greedy = cfg(repair_ops=("greedy",))["improvement"]
     regret2 = cfg(repair_ops=("regret2",))["improvement"]
@@ -123,10 +134,12 @@ def test_greedy_beats_regret2_against_the_common_literature_intuition():
 # --- Zerstörungsgröße-Sweep: Plateau ab ~20 % ------------------------------------------------------------------------------------------------
 
 
+@pytest.mark.slow
 def test_small_destruction_size_is_clearly_worse():
     near(cfg(k_percent=5)["improvement"], 7.831, 1.0)
 
 
+@pytest.mark.slow
 def test_destruction_size_plateaus_from_twenty_percent_on():
     small_k = cfg(k_percent=5)["improvement"]
     default_k = cfg()["improvement"]                                        # k_percent=20 (Voreinstellung)
@@ -138,11 +151,13 @@ def test_destruction_size_plateaus_from_twenty_percent_on():
 # --- Budget-Sweep: konvergiert bei ~100 Tausend ---------------------------------------------------------------------------------------------
 
 
+@pytest.mark.slow
 def test_budget_sweep_numbers():
     near(cfg(budget=5000)["improvement"], 7.741, 1.0)
     near(cfg(budget=200000)["improvement"], 8.934, 1.0)
 
 
+@pytest.mark.slow
 def test_budget_plateaus_by_one_hundred_thousand():
     at_100k = cfg(budget=100000)["improvement"]
     at_200k = cfg(budget=200000)["improvement"]
@@ -158,11 +173,13 @@ def test_improvement_grows_with_budget_at_the_small_end():
 # --- Kapazitäts-Sweep: NICHT monoton, Optimum bei mittlerer Kapazität (zentraler ehrlicher Befund, wie die Schwester-Demo) -----------------------
 
 
+@pytest.mark.slow
 def test_capacity_sweep_numbers():
     near(cfg(capacity=15)["improvement"], 1.041, 0.6)
     near(cfg(capacity=600)["improvement"], 6.567, 1.0)
 
 
+@pytest.mark.slow
 def test_capacity_value_is_not_monotone_the_optimum_is_in_the_middle():
     small = cfg(capacity=15)["improvement"]
     medium = cfg()["improvement"]                                           # capacity=120 (Voreinstellung)
@@ -173,11 +190,13 @@ def test_capacity_value_is_not_monotone_the_optimum_is_in_the_middle():
 # --- Skalierung: NICHT monoton, Optimum bei n=100 (derselbe Routenzahl-Treiber wie die Kapazität) -------------------------------------------------
 
 
+@pytest.mark.slow
 def test_scaling_numbers_at_fixed_fifty_thousand_budget():
     near(cfg(n=20, budget=50000)["improvement"], 2.045, 1.0)
     near(cfg(n=100, budget=50000)["improvement"], 9.525, 1.5)
 
 
+@pytest.mark.slow
 def test_scaling_is_not_monotone_the_optimum_is_at_n_equals_one_hundred():
     small_n = cfg(n=20, budget=50000)["improvement"]
     peak_n = cfg(n=100, budget=50000)["improvement"]
